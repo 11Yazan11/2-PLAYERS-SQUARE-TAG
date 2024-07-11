@@ -24,6 +24,10 @@ cd 2-PLAYERS-SQUARE-TAG
 # Install dependencies
 pip install -r requirements.txt
 
+# Run 2 Players Square Tag...
+python main.py
+
+
 ```
 
 
