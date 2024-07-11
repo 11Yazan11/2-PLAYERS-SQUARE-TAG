@@ -43,7 +43,7 @@ class Game:
             self.screen = pygame.display.set_mode((self.wnx, self.wny))
 
         
-        self.fps = 90
+        self.fps = 120
         self.clock = pygame.time.Clock()
         self.draw = draw
 
