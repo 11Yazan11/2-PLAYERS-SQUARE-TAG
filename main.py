@@ -80,6 +80,7 @@ def main():
          draw = False
     else:
         return #stop main()
+        
     run = True
     game = Game(draw)
     if draw:
@@ -125,7 +126,7 @@ def main():
                 game.window2.fill((100, 20, 40))
                 game.window.fill((40, 20, 100))    
 
-            matrix_changes, player1_is_tager, player1_got_taged = grid1.updater(matrix_changes, player1_tagged_someone)
+            matrix_changes, player1_is_tager, player1_got_taged, start = grid1.updater(matrix_changes, player1_tagged_someone)
             matrix_changes, player2_is_tager, player2_got_taged = grid2.updater(matrix_changes, player2_tagged_someone)
 
             player1_tagged_someone = False
@@ -145,8 +146,8 @@ def main():
                 game.window2.blit(game.tager_img, (10, 10))
                 game.window2.blit(tagger_txt, (10, 140))
 
-
-            score_factor -= 0.005
+            if start:
+                score_factor -= 0.005
 
             if player1_got_taged:
                 player_2_score += int(score_factor*10)/10
@@ -161,7 +162,7 @@ def main():
             pygame.display.set_caption(f" | [SQUARE TAG] | [YOU SHOULD SEARCH UP 'GORILLA TAG VR' ON GOOGLE...].  |              PLAYER-1 SCORE = {player_1_score}  VS   PLAYER-2 SCORE = {player_2_score}            |  GAINS WHEN TAGGING ARE DECREASING : {int(score_factor*10)/10} points left !")
     
         else:
-            matrix_changes, _, _ = grid.updater(matrix_changes, None)
+            matrix_changes, _, _, _ = grid.updater(matrix_changes, None)
             
         pygame.display.flip()
         
