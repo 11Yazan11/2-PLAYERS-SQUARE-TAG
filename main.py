@@ -74,7 +74,11 @@ class Game:
 
 def main():
     draw = input("DRAW MODE ? [answer : True/False] [else will stop program]")
-    if draw!=True and draw!=False:
+    if draw == "True":
+         draw = True
+    elif draw == "False":
+         draw = False
+    else:
         return #stop main()
     run = True
     game = Game(draw)
