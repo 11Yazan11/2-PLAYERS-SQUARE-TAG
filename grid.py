@@ -1,8 +1,6 @@
 import pygame
 import numpy as np
 import random
-import time
-import os
 from matrix import *
 from camera import *
 
@@ -46,7 +44,7 @@ class Grid:
         self.camera_handle()
         self.tag_handle()
         self.matrix[self.player_position[0], self.player_position[1]] = [255, 0, 0]
-        return self.matrix, self.is_tager, self.got_taged 
+        return self.matrix, self.is_tager, self.got_taged, self.can_move 
 
     def tag_handle(self):
         pressed = pygame.key.get_pressed()
@@ -100,7 +98,7 @@ class Grid:
 
     def mover(self):
         pressed = pygame.key.get_pressed()
-        if pressed[pygame.K_d] and self.player_position[0] < self.sidex - 4:   
+        if pressed[pygame.K_d] and self.player_position[0] < self.sidex - 2:   
             self.matrix[self.player_position[0], self.player_position[1], 0] = 0
             self.player_position[0] += 1
             if self.matrix[self.player_position[0], self.player_position[1], 0] == 0 and self.matrix[self.player_position[0], self.player_position[1], 1] == 0 and self.matrix[self.player_position[0], self.player_position[1], 2] == 0:
@@ -304,7 +302,7 @@ class Grid2:
 
     def mover(self):
         pressed = pygame.key.get_pressed()
-        if pressed[pygame.K_RIGHT] and self.player_position[0] < self.sidex - 4:   
+        if pressed[pygame.K_RIGHT] and self.player_position[0] < self.sidex - 2:   
             self.matrix[self.player_position[0], self.player_position[1], 1] = 0
             self.player_position[0] += 1
             if self.matrix[self.player_position[0], self.player_position[1], 0] == 0 and self.matrix[self.player_position[0], self.player_position[1], 1] == 0 and self.matrix[self.player_position[0], self.player_position[1], 2] == 0:
