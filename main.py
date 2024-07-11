@@ -3,6 +3,7 @@ import numpy as np
 import random
 import time
 import sys
+import os
 from matrix import *
 
 
@@ -72,7 +73,9 @@ class Game:
 
 
 def main():
-    draw = False
+    draw = input("DRAW MODE ? [answer : True/False] [else will stop program]")
+    if draw!=True and draw!=False:
+        return #stop main()
     run = True
     game = Game(draw)
     if draw:
@@ -162,7 +165,9 @@ def main():
 
     pygame.quit() 
 
-    #print(np.array2string(grid.matrix, separator=', '))
+    if draw:
+        os.system('clear')
+        print(np.array2string(grid.matrix, separator=', '))
 
 
        
