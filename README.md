@@ -4,7 +4,6 @@ SIMPLE YET THRILLING TAG GAME. THE TWO PLAYERS ARE SQUARES, AND THE HUGE MAP CAN
 ## Table of Contents
 - [Features](#features)
 - [Installation](#installation)
-- [Usage](#usage)
 
 
 ## Features
@@ -31,4 +30,3 @@ python main.py
 ```
 
 
-## Usage
