@@ -22,7 +22,7 @@ def choose_desired_map(map_number):
         key_lines.append((start_line, end_line))
 
     # Step 4: Select the desired matrix (e.g., the third matrix)
-    map_index = 2
+    map_index = map_number
 
     with open('matrix_text.txt', 'r') as reader:
         # Calculate the correct start and end lines to read
