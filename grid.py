@@ -40,11 +40,11 @@ class Grid:
         self.matrix = grid
         if self.draw:
             self.drawer()
-        else:   
-            if self.can_move: 
+        else:  
+            self.tag_handle()  
+            if self.can_move:
                 self.mover()
-        self.camera_handle()
-        self.tag_handle()
+        self.camera_handle() 
         self.matrix[self.player_position[0], self.player_position[1]] = [255, 0, 0]
         return self.matrix, self.is_tager, self.got_taged, self.can_move 
 
@@ -54,7 +54,7 @@ class Grid:
             self.can_move = True
 
         if not self.is_tager:
-            if self.matrix[self.player_position[0]-1, self.player_position[1], 0] == 0 and self.matrix[self.player_position[0]+1, self.player_position[1], 1] == 255 and self.matrix[self.player_position[0]+1, self.player_position[1], 2] == 0:
+            if self.matrix[self.player_position[0]-1, self.player_position[1], 0] == 0 and self.matrix[self.player_position[0]-1, self.player_position[1], 1] == 255 and self.matrix[self.player_position[0]-1, self.player_position[1], 2] == 0 and pressed[pygame.K_RIGHT]:
                 self.matrix[self.player_position[0], self.player_position[1]] = [0, 0, 0]
                 self.player_position = [3, 108]
                 self.is_tager = True
@@ -63,7 +63,7 @@ class Grid:
                 self.camera = Camera(self.window, self.wnx, self.wny, self.zoom_index, self.player_position, self.sidex, self.sidey)
                 self.got_taged = True
 
-            elif self.matrix[self.player_position[0]+1, self.player_position[1], 0] == 0 and self.matrix[self.player_position[0]-1, self.player_position[1], 1] == 255 and self.matrix[self.player_position[0]-1, self.player_position[1], 2] == 0:
+            elif self.matrix[self.player_position[0]+1, self.player_position[1], 0] == 0 and self.matrix[self.player_position[0]+1, self.player_position[1], 1] == 255 and self.matrix[self.player_position[0]+1, self.player_position[1], 2] == 0 and pressed[pygame.K_LEFT]:
                 self.matrix[self.player_position[0], self.player_position[1]] = [0, 0, 0]
                 self.player_position = [3, 108]
                 self.is_tager = True
@@ -72,7 +72,7 @@ class Grid:
                 self.camera = Camera(self.window, self.wnx, self.wny, self.zoom_index, self.player_position, self.sidex, self.sidey) 
                 self.got_taged = True
 
-            elif self.matrix[self.player_position[0], self.player_position[1]+1, 0] == 0 and self.matrix[self.player_position[0], self.player_position[1]+1, 1] == 255 and self.matrix[self.player_position[0], self.player_position[1]+1, 2] == 0:
+            elif self.matrix[self.player_position[0], self.player_position[1]+1, 0] == 0 and self.matrix[self.player_position[0], self.player_position[1]+1, 1] == 255 and self.matrix[self.player_position[0], self.player_position[1]+1, 2] == 0 and pressed[pygame.K_UP]:
                 self.matrix[self.player_position[0], self.player_position[1]] = [0, 0, 0]
                 self.player_position = [3, 108]
                 self.is_tager = True
@@ -81,7 +81,7 @@ class Grid:
                 self.camera = Camera(self.window, self.wnx, self.wny, self.zoom_index, self.player_position, self.sidex, self.sidey)
                 self.got_taged = True
 
-            elif self.matrix[self.player_position[0], self.player_position[1]-1, 0] == 0 and self.matrix[self.player_position[0], self.player_position[1]-1, 1] == 255 and self.matrix[self.player_position[0], self.player_position[1]-1, 2] == 0:
+            elif self.matrix[self.player_position[0], self.player_position[1]-1, 0] == 0 and self.matrix[self.player_position[0], self.player_position[1]-1, 1] == 255 and self.matrix[self.player_position[0], self.player_position[1]-1, 2] == 0 and pressed[pygame.K_DOWN]:
                 self.matrix[self.player_position[0], self.player_position[1]] = [0, 0, 0]
                 self.player_position = [3, 108]
                 self.is_tager = True
@@ -111,6 +111,16 @@ class Grid:
                     self.camera_x_corr -= self.camera_corr_speed 
                 else:
                     self.camera_x_corr = -self.camera_corr_speed 
+            elif self.matrix[self.player_position[0], self.player_position[1], 0] == 250 and self.matrix[self.player_position[0], self.player_position[1], 1] == 250 and self.matrix[self.player_position[0], self.player_position[1], 2] == 250 and not self.is_tager:
+                self.matrix[self.player_position[0], self.player_position[1]] = [250, 0, 0]
+                self.player_position[0] -= 1 
+                self.matrix[self.player_position[0], self.player_position[1], 0] = 255 
+
+            elif self.matrix[self.player_position[0], self.player_position[1], 0] == 0 and self.matrix[self.player_position[0], self.player_position[1], 1] == 250 and self.matrix[self.player_position[0], self.player_position[1], 2] == 0 and not self.is_tager:
+                self.matrix[self.player_position[0], self.player_position[1]] = [250, 0, 0]
+                self.player_position[0] -= 1 
+                self.matrix[self.player_position[0], self.player_position[1], 0] = 255      
+
             else:
                 self.player_position[0] -= 1
                 self.matrix[self.player_position[0], self.player_position[1], 0] = 255    
@@ -126,6 +136,16 @@ class Grid:
                     self.camera_x_corr += self.camera_corr_speed 
                 else:
                     self.camera_x_corr = self.camera_corr_speed
+            elif self.matrix[self.player_position[0], self.player_position[1], 0] == 250 and self.matrix[self.player_position[0], self.player_position[1], 1] == 250 and self.matrix[self.player_position[0], self.player_position[1], 2] == 250 and not self.is_tager:
+                self.matrix[self.player_position[0], self.player_position[1]] = [250, 0, 0]
+                self.player_position[0] += 1 
+                self.matrix[self.player_position[0], self.player_position[1], 0] = 255
+
+            elif self.matrix[self.player_position[0], self.player_position[1], 0] == 0 and self.matrix[self.player_position[0], self.player_position[1], 1] == 250 and self.matrix[self.player_position[0], self.player_position[1], 2] == 0 and not self.is_tager:
+                self.matrix[self.player_position[0], self.player_position[1]] = [250, 0, 0]
+                self.player_position[0] += 1 
+                self.matrix[self.player_position[0], self.player_position[1], 0] = 255 
+
             else:
                 self.player_position[0] += 1 
                 self.matrix[self.player_position[0], self.player_position[1], 0] = 255   
@@ -141,6 +161,15 @@ class Grid:
                     self.camera_y_corr += self.camera_corr_speed 
                 else:
                     self.camera_y_corr = self.camera_corr_speed
+            elif self.matrix[self.player_position[0], self.player_position[1], 0] == 250 and self.matrix[self.player_position[0], self.player_position[1], 1] == 250 and self.matrix[self.player_position[0], self.player_position[1], 2] == 250 and not self.is_tager:
+                self.matrix[self.player_position[0], self.player_position[1]] = [250, 0, 0]
+                self.player_position[1] += 1 
+                self.matrix[self.player_position[0], self.player_position[1], 0] = 255
+
+            elif self.matrix[self.player_position[0], self.player_position[1], 0] == 0 and self.matrix[self.player_position[0], self.player_position[1], 1] == 250 and self.matrix[self.player_position[0], self.player_position[1], 2] == 0 and not self.is_tager:
+                self.matrix[self.player_position[0], self.player_position[1]] = [250, 0, 0]
+                self.player_position[1] += 1 
+                self.matrix[self.player_position[0], self.player_position[1], 0] = 255             
             else:
                 self.player_position[1] += 1
                 self.matrix[self.player_position[0], self.player_position[1], 0] = 255    
@@ -157,6 +186,15 @@ class Grid:
                     self.camera_y_corr -= self.camera_corr_speed 
                 else:
                     self.camera_y_corr = -self.camera_corr_speed
+            elif self.matrix[self.player_position[0], self.player_position[1], 0] == 250 and self.matrix[self.player_position[0], self.player_position[1], 1] == 250 and self.matrix[self.player_position[0], self.player_position[1], 2] == 250 and not self.is_tager:
+                self.matrix[self.player_position[0], self.player_position[1]] = [250, 0, 0]
+                self.player_position[1] -= 1 
+                self.matrix[self.player_position[0], self.player_position[1], 0] = 255 
+            elif self.matrix[self.player_position[0], self.player_position[1], 0] == 0 and self.matrix[self.player_position[0], self.player_position[1], 1] == 250 and self.matrix[self.player_position[0], self.player_position[1], 2] == 0 and not self.is_tager:
+                self.matrix[self.player_position[0], self.player_position[1]] = [250, 0, 0]
+                self.player_position[1] -= 1 
+                self.matrix[self.player_position[0], self.player_position[1], 0] = 255 
+
             else:
                 self.player_position[1] -= 1 #cancel movement 
                 self.matrix[self.player_position[0], self.player_position[1], 0] = 255          
@@ -249,15 +287,16 @@ class Grid2:
         if tagged_someone:
             self.is_tager = False
         self.matrix = grid
+        self.tag_handle()
         self.mover()
         self.camera_handle()
-        self.tag_handle()
         self.matrix[self.player_position[0], self.player_position[1]] = [0, 255, 0]
         return self.matrix, self.is_tager, self.got_taged
     
     def tag_handle(self):
+        pressed = pygame.key.get_pressed()
         if not self.is_tager:
-            if self.matrix[self.player_position[0]-1, self.player_position[1], 0] == 255 and self.matrix[self.player_position[0]+1, self.player_position[1], 1] == 0 and self.matrix[self.player_position[0]+1, self.player_position[1], 2] == 0:
+            if self.matrix[self.player_position[0]-1, self.player_position[1], 0] == 255 and self.matrix[self.player_position[0]-1, self.player_position[1], 1] == 0 and self.matrix[self.player_position[0]-1, self.player_position[1], 2] == 0 and pressed[pygame.K_d]:
                 self.matrix[self.player_position[0], self.player_position[1]] = [0, 0, 0]
                 self.player_position = [5, 108]
                 self.camera_x_corr = 0
@@ -266,7 +305,7 @@ class Grid2:
                 self.is_tager = True
                 self.got_taged = True
 
-            elif self.matrix[self.player_position[0]+1, self.player_position[1], 0] == 255 and self.matrix[self.player_position[0]-1, self.player_position[1], 1] == 0 and self.matrix[self.player_position[0]-1, self.player_position[1], 2] == 0:
+            elif self.matrix[self.player_position[0]+1, self.player_position[1], 0] == 255 and self.matrix[self.player_position[0]+1, self.player_position[1], 1] == 0 and self.matrix[self.player_position[0]+1, self.player_position[1], 2] == 0 and pressed[pygame.K_q]:
                 self.matrix[self.player_position[0], self.player_position[1]] = [0, 0, 0]
                 self.player_position = [5, 108] 
                 self.camera_x_corr = 0
@@ -276,7 +315,7 @@ class Grid2:
                 self.got_taged = True
 
 
-            elif self.matrix[self.player_position[0], self.player_position[1]+1, 0] == 255 and self.matrix[self.player_position[0], self.player_position[1]+1, 1] == 0 and self.matrix[self.player_position[0], self.player_position[1]+1, 2] == 0:
+            elif self.matrix[self.player_position[0], self.player_position[1]+1, 0] == 255 and self.matrix[self.player_position[0], self.player_position[1]+1, 1] == 0 and self.matrix[self.player_position[0], self.player_position[1]+1, 2] == 0 and pressed[pygame.K_z]:
                 self.matrix[self.player_position[0], self.player_position[1]] = [0, 0, 0]
                 self.player_position = [5, 108]
                 self.camera_x_corr = 0
@@ -286,7 +325,7 @@ class Grid2:
                 self.got_taged = True
 
 
-            elif self.matrix[self.player_position[0], self.player_position[1]-1, 0] == 255 and self.matrix[self.player_position[0], self.player_position[1]-1, 1] == 0 and self.matrix[self.player_position[0], self.player_position[1]-1, 2] == 0:
+            elif self.matrix[self.player_position[0], self.player_position[1]-1, 0] == 255 and self.matrix[self.player_position[0], self.player_position[1]-1, 1] == 0 and self.matrix[self.player_position[0], self.player_position[1]-1, 2] == 0 and pressed[pygame.K_s]:
                 self.matrix[self.player_position[0], self.player_position[1]] = [0, 0, 0]
                 self.player_position = [5, 108]
                 self.camera_x_corr = 0
@@ -315,6 +354,15 @@ class Grid2:
                     self.camera_x_corr -= self.camera_corr_speed 
                 else:
                     self.camera_x_corr = -self.camera_corr_speed 
+            elif self.matrix[self.player_position[0], self.player_position[1], 0] == 250 and self.matrix[self.player_position[0], self.player_position[1], 1] == 250 and self.matrix[self.player_position[0], self.player_position[1], 2] == 250 and not self.is_tager:
+                self.matrix[self.player_position[0], self.player_position[1]] = [0, 250, 0]
+                self.player_position[0] -= 1
+                self.matrix[self.player_position[0], self.player_position[1], 1] = 255
+
+            elif self.matrix[self.player_position[0], self.player_position[1], 0] == 250 and self.matrix[self.player_position[0], self.player_position[1], 1] == 0 and self.matrix[self.player_position[0], self.player_position[1], 2] == 0 and not self.is_tager:
+                self.matrix[self.player_position[0], self.player_position[1]] = [0, 250, 0]
+                self.player_position[0] -= 1
+                self.matrix[self.player_position[0], self.player_position[1], 1] = 255        
             else:
                 self.player_position[0] -= 1
                 self.matrix[self.player_position[0], self.player_position[1], 1] = 255    
@@ -330,6 +378,15 @@ class Grid2:
                     self.camera_x_corr += self.camera_corr_speed 
                 else:
                     self.camera_x_corr = self.camera_corr_speed
+            elif self.matrix[self.player_position[0], self.player_position[1], 0] == 250 and self.matrix[self.player_position[0], self.player_position[1], 1] == 250 and self.matrix[self.player_position[0], self.player_position[1], 2] == 250 and not self.is_tager:
+                self.matrix[self.player_position[0], self.player_position[1]] = [0, 250, 0]
+                self.player_position[0] += 1
+                self.matrix[self.player_position[0], self.player_position[1], 1] = 255  
+                
+            elif self.matrix[self.player_position[0], self.player_position[1], 0] == 250 and self.matrix[self.player_position[0], self.player_position[1], 1] == 0 and self.matrix[self.player_position[0], self.player_position[1], 2] == 0 and not self.is_tager:
+                self.matrix[self.player_position[0], self.player_position[1]] = [0, 250, 0]
+                self.player_position[0] += 1
+                self.matrix[self.player_position[0], self.player_position[1], 1] = 255            
             else:
                 self.player_position[0] += 1 
                 self.matrix[self.player_position[0], self.player_position[1], 1] = 255   
@@ -345,6 +402,15 @@ class Grid2:
                     self.camera_y_corr += self.camera_corr_speed 
                 else:
                     self.camera_y_corr = self.camera_corr_speed
+            elif self.matrix[self.player_position[0], self.player_position[1], 0] == 250 and self.matrix[self.player_position[0], self.player_position[1], 1] == 250 and self.matrix[self.player_position[0], self.player_position[1], 2] == 250 and not self.is_tager:
+                self.matrix[self.player_position[0], self.player_position[1]] = [0, 250, 0]
+                self.player_position[1] += 1
+                self.matrix[self.player_position[0], self.player_position[1], 1] = 255
+
+            elif self.matrix[self.player_position[0], self.player_position[1], 0] == 250 and self.matrix[self.player_position[0], self.player_position[1], 1] == 0 and self.matrix[self.player_position[0], self.player_position[1], 2] == 0 and not self.is_tager:
+                self.matrix[self.player_position[0], self.player_position[1]] = [0, 250, 0]
+                self.player_position[1] += 1
+                self.matrix[self.player_position[0], self.player_position[1], 1] = 255            
             else:
                 self.player_position[1] += 1
                 self.matrix[self.player_position[0], self.player_position[1], 1] = 255   
@@ -361,6 +427,14 @@ class Grid2:
                     self.camera_y_corr -= self.camera_corr_speed 
                 else:
                     self.camera_y_corr = -self.camera_corr_speed
+            elif self.matrix[self.player_position[0], self.player_position[1], 0] == 250 and self.matrix[self.player_position[0], self.player_position[1], 1] == 250 and self.matrix[self.player_position[0], self.player_position[1], 2] == 250 and not self.is_tager:
+                self.matrix[self.player_position[0], self.player_position[1]] = [0, 250, 0]
+                self.player_position[1] -= 1
+                self.matrix[self.player_position[0], self.player_position[1], 1] = 255
+            elif self.matrix[self.player_position[0], self.player_position[1], 0] == 250 and self.matrix[self.player_position[0], self.player_position[1], 1] == 0 and self.matrix[self.player_position[0], self.player_position[1], 2] == 0 and not self.is_tager:
+                self.matrix[self.player_position[0], self.player_position[1]] = [0, 250, 0]
+                self.player_position[1] -= 1
+                self.matrix[self.player_position[0], self.player_position[1], 1] = 255            
             else:
                 self.player_position[1] -= 1 #cancel movement 
                 self.matrix[self.player_position[0], self.player_position[1], 1] = 255         
