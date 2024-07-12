@@ -171,7 +171,7 @@ def main():
     pygame.quit() 
 
     if draw:
-        os.system('clear')
+        os.system('cls') #or clear depending on device
         print(np.array2string(grid.matrix, separator=', '))
 
 
