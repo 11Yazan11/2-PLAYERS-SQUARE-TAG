@@ -1,9 +1,12 @@
+import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+
 import pygame
 import numpy as np
 import random
 import time
 import sys
-import os
+
 from matrix import *
 
 
@@ -13,6 +16,10 @@ np.set_printoptions(threshold=sys.maxsize)
 from grid import *
 from camera import *
 
+print("WELCOME TO 2-PLAYERS SQUARE TAG !")
+
+map_number = input("CHOOSE MAP : FROM 1 TO LAST MAP AVAILABLE, [ONLY ONE MAP BY DEFAULT]. ||  ")
+matrix = choose_desired_map(int(map_number))
 
 pygame.init()
 
@@ -43,7 +50,7 @@ class Game:
             self.screen = pygame.display.set_mode((self.wnx, self.wny))
 
         
-        self.fps = 120
+        self.fps = 200
         self.clock = pygame.time.Clock()
         self.draw = draw
 
@@ -82,14 +89,15 @@ def main():
         return #stop main()
         
     run = True
+    matrix_changes = np.array(matrix).reshape(180, int(180/1.5), 3) 
     game = Game(draw)
     if draw:
-        grid = Grid(game.screen, game.wnx, game.wny, draw)
+        grid = Grid(game.screen, game.wnx, game.wny, matrix_changes, draw)
     else:
-        grid1 = Grid(game.window, game.s1x, game.s1y, draw)
-        grid2 = Grid2(game.window2, game.s2x, game.s2y, draw)
+        grid1 = Grid(game.window, game.s1x, game.s1y, matrix_changes, draw)
+        grid2 = Grid2(game.window2, game.s2x, game.s2y, matrix_changes, draw)
 
-    matrix_changes = np.array(matrix).reshape(180, int(180/1.5), 3) 
+    
 
     player1_tagged_someone = False
     player2_tagged_someone = False  
@@ -171,8 +179,41 @@ def main():
     pygame.quit() 
 
     if draw:
-        os.system('cls') #or clear depending on device
-        print(np.array2string(grid.matrix, separator=', '))
+
+        draw_final_map = input("SAVE THE DROWN MAP ? [True/False]")
+
+        if draw_final_map == "True":
+
+            delete_other_maps = input("DELETE OTHER MAPS FOR MEMORY SPACE ? [True/False]")
+
+            if delete_other_maps == "True":
+
+                os.system('cls')
+
+                new_content = 'matrix = ' + np.array2string(grid.matrix, separator=', ')
+
+                with open('matrix_text.txt', 'w') as writer:
+                    writer.write(new_content)
+                
+
+            else:
+        
+
+                os.system('cls')
+
+                new_content = '\n matrix = ' + np.array2string(grid.matrix, separator=', ')
+
+                with open('matrix_text.txt', 'r') as reader:
+                    existing_content = reader.read()
+
+                combined_content = existing_content + new_content
+
+                with open('matrix_text.txt', 'w') as writer:
+                    writer.write(combined_content)
+
+        
+
+        
 
 
        
@@ -181,8 +222,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+    print("HAVE A NICE DAY, AND THANKS FOR PLAYING !")
 
             
         
-
 
