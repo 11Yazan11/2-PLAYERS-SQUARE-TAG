@@ -7,7 +7,7 @@ SIMPLE YET THRILLING TAG GAME. THE TWO PLAYERS ARE SQUARES, AND THE HUGE MAP CAN
 
 
 ## Features
-This project provides a tag game : 2 players represented by 2 squares can move in a map. One of them must tag the other one. The faster he does it, the most point he will get. Moreover, it is possible to switch to map customization mode (by answering True at the beggining). Once you are done drawing : the output (your new map) is printed in the python console (when the window is closed). It is a numpy array. Just copy paste it, and replace everything in matrix.py, with it. Don't forget to delete the run-time (at the end) if you also copied it. Also, write "matrix = " at the beggining. Thus the new matrix will thus be equal to what you previously drew. 
+This project provides a tag game : 2 players represented by 2 squares can move in a map. One of them must tag the other one. The faster he does it, the most point he will get. Moreover, it is possible to switch to map customization mode (by answering True at the beggining). Once you are done drawing you are asked if you want to save the map, and if you want to delete the other maps. It is better to delete them from time to time to not run out of memory. For the playing mode, commands are "q = left, z = up, s = down, d = right" for the first player, and arrow keys for the second player. And for the drawing mode, commands are indicated in the window name. You must select red, green, or blue, (with a, z, or e keys respectivly) first, then you can increase/decrease the values to get the color you want. Then you can also change the size of the square you will draw (r to increase, t to decrease, these keys should be long pressed). Finally, simply click on the square(s) you want to color.
 
 
 ## Installation
