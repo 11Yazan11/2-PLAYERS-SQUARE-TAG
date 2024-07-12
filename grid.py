@@ -1,17 +1,19 @@
 import pygame
 import numpy as np
 import random
-from matrix import *
+
+
 from camera import *
 
 class Grid:
-    def __init__(self, window, wnx, wny, draw=True):
+    def __init__(self, window, wnx, wny, matrix, draw=True):
         self.wnx = wnx
         self.wny = wny
         self.sidex = 180
         self.sidey = int(self.sidex / 1.5)
-        self.matrix = np.array(matrix)
-        self.matrix = self.matrix.reshape(self.sidex, self.sidey, 3)
+        self.matrix = matrix
+        #self.matrix = np.array([0] * self.sidex * self.sidey * 3)
+        #self.matrix = self.matrix.reshape(self.sidex, self.sidey, 3)
         self.colorer = [0, 0, 0]  # default color
         self.selector = 0
         self.size = 1
@@ -222,13 +224,13 @@ class Grid:
 
 
 class Grid2:
-    def __init__(self, window, wnx, wny, draw=False):
+    def __init__(self, window, wnx, wny, matrix, draw=False):
         self.wnx = wnx
         self.wny = wny
         self.sidex = 180
         self.sidey = int(self.sidex / 1.5)
-        self.matrix = np.array(matrix)
-        self.matrix = self.matrix.reshape(self.sidex, self.sidey, 3)
+        self.matrix = matrix
+        #self.matrix = self.matrix.reshape(self.sidex, self.sidey, 3)
         self.size = 1
         self.window = window
         self.zoom_index = 2
