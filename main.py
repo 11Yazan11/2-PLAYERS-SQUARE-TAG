@@ -201,12 +201,13 @@ def main():
 
                 os.system('cls')
 
-                new_content = '\n matrix = ' + np.array2string(grid.matrix, separator=', ')
+                new_content = 'matrix = ' + np.array2string(grid.matrix, separator=', ')
+                aditional_line = '\n'
 
                 with open('matrix_text.txt', 'r') as reader:
                     existing_content = reader.read()
 
-                combined_content = existing_content + new_content
+                combined_content = existing_content + new_content + aditional_line
 
                 with open('matrix_text.txt', 'w') as writer:
                     writer.write(combined_content)
